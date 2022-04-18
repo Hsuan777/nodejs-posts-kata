@@ -26,29 +26,20 @@ const requestListener = async (req, res) => {
     }
   } else if (req.url === '/posts' && req.method === 'POST') {
     req.on('end', async () => {
-      let isPass = false;
       try {
         const data = JSON.parse(body);
-        if (data.name === undefined) {
-          errorHandle(res, '屬性「name」為必要欄位');
-        } else if (data.tags === undefined) {
-          errorHandle(res, '屬性「tags」為必要欄位');
-        } else if (data.type === undefined) {
-          errorHandle(res, '屬性「type」為必要欄位');
-        } else if (data.content === undefined) {
-          errorHandle(res, '屬性「content」為必要欄位');
-        } else if (data.name === '') {
-          errorHandle(res, '屬性「name」不能為空值');
-        } else if (data.tags  === '') {
-          errorHandle(res, '屬性「tags」不能為空值');
-        } else if (data.type  === '') {
-          errorHandle(res, '屬性「type」不能為空值必填');
-        } else if (data.content === '') {
-          errorHandle(res, '屬性「content」不能為空值');
-        } else {
-          isPass = true;
-        }
-        if (isPass) {
+        const required = ['name', 'tags', 'type'];
+        let count = 0;
+        required.forEach((item) => {
+          if (data[item] === undefined) {
+            errorHandle(res, `屬性「${item}」為必要欄位`);
+          } else if (data[item] === '' || data[item].length === 0) {
+            errorHandle(res, `屬性「${item}」不能為空值`);
+          } else {
+            count += 1;
+          }
+        });
+        if (count === required.length) {
           const newPost = await Post.create({
             name: data.name,
             tags: data.tags,
