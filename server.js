@@ -5,6 +5,7 @@ dotenv.config({path: './config.env'});
 
 const headers = require('./headers');
 const { successHandle, errorHandle  } = require('./handles');
+const checkBody = require('./tools/checkBody');
 const Post = require('./model/post');
 
 const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
@@ -28,18 +29,9 @@ const requestListener = async (req, res) => {
     req.on('end', async () => {
       try {
         const data = JSON.parse(body);
-        const required = ['name', 'tags', 'type'];
-        let count = 0;
-        required.forEach((item) => {
-          if (data[item] === undefined) {
-            errorHandle(res, `屬性「${item}」為必要欄位`);
-          } else if (data[item] === '' || data[item].length === 0) {
-            errorHandle(res, `屬性「${item}」不能為空值`);
-          } else {
-            count += 1;
-          }
-        });
-        if (count === required.length) {
+        const isPass = checkBody(res, data);
+        console.log();
+        if (isPass) {
           const newPost = await Post.create({
             name: data.name,
             tags: data.tags,
@@ -47,7 +39,7 @@ const requestListener = async (req, res) => {
             image: data.image,
             content: data.content,
           })
-          successHandle(res, newPost)
+          successHandle(res, newPost);
         }
       } catch(error) {
         errorHandle(res, error.errors)
@@ -57,11 +49,11 @@ const requestListener = async (req, res) => {
     await Post.deleteMany({});
     successHandle(res, '刪除所有資料成功');
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
-    try {
-      const postId = req.url.split('/').pop();
-      await Post.findByIdAndDelete(postId);
+    const postId = req.url.split('/').pop();
+    const result = await Post.findByIdAndDelete(postId);
+    if (result) {
       successHandle(res, '刪除資料成功');
-    } catch {
+    } else {
       errorHandle(res, '刪除資料失敗，無此 ID');
     }
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
@@ -69,14 +61,17 @@ const requestListener = async (req, res) => {
       try {
         const postId = req.url.split('/').pop();
         const data = JSON.parse(body);
-        await Post.findByIdAndUpdate(postId, {
-          name: data.name,
-          tags: data.tags,
-          type: data.type,
-          image: data.image,
-          content: data.tags,
-        });
-        successHandle(res, '修改資料成功')
+        const isPass = checkBody(res, data);
+        if (isPass) {
+          await Post.findByIdAndUpdate(postId, {
+            name: data.name,
+            tags: data.tags,
+            type: data.type,
+            image: data.image,
+            content: data.content,
+          });
+          successHandle(res, '修改資料成功')
+        }
       } catch(error) {
         errorHandle(res, error.errors);
       }
