@@ -30,7 +30,6 @@ const requestListener = async (req, res) => {
       try {
         const data = JSON.parse(body);
         const isPass = checkBody(res, data);
-        console.log();
         if (isPass) {
           const newPost = await Post.create({
             name: data.name,
