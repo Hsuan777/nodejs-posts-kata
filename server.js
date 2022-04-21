@@ -60,8 +60,9 @@ const requestListener = async (req, res) => {
       try {
         const postId = req.url.split('/').pop();
         const data = JSON.parse(body);
+        const result = await Post.findByIdAndDelete(postId);
         const isPass = checkBody(res, data);
-        if (isPass) {
+        if (isPass || result) {
           await Post.findByIdAndUpdate(postId, {
             name: data.name,
             tags: data.tags,
@@ -71,8 +72,8 @@ const requestListener = async (req, res) => {
           });
           successHandle(res, '修改資料成功')
         }
-      } catch(error) {
-        errorHandle(res, error.errors);
+      } catch {
+        errorHandle(res, '修改資料失敗，無此 ID');
       }
     })
   } else if (req.url === '/posts' && req.method === 'OPTIONS') {
