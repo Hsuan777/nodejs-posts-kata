@@ -11,9 +11,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/posts",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts"
@@ -37,9 +40,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{API_URL}}/posts",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts"
@@ -54,9 +60,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/posts",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts"
@@ -71,13 +80,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/posts/6259bd0909173980a98a5e95",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts/6260af0bdd825245d226e3ed",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts",
-						"6259bd0909173980a98a5e95"
+						"6260af0bdd825245d226e3ed"
 					]
 				}
 			},
@@ -90,7 +102,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Vic\",\n    \"tags\": \"心得\",\n    \"type\": \"社團\",\n    \"image\": \"https://images.unsplash.com/photo-1648737119359-510d4f551382?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80\",\n    \"content\": \"week2\"\n}",
+					"raw": "{\n    \"name\": \"Vi\",\n    \"tags\": \"心得\",\n    \"type\": \"社團\",\n    \"image\": \"https://images.unsplash.com/photo-1648737119359-510d4f551382?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80\",\n    \"content\": \"week2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,13 +110,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{API_URL}}/posts/6259bd8709173980a98a5e9c",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts/6260af0add825245d226e3eb",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts",
-						"6259bd8709173980a98a5e9c"
+						"6260af0add825245d226e3eb"
 					]
 				}
 			},
@@ -116,9 +131,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/posts/qwewq",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts/qwewq",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts",
@@ -134,9 +152,12 @@
 				"method": "OPTIONS",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/posts",
+					"raw": "https://nodejs-posts-kata.herokuapp.com/posts",
+					"protocol": "https",
 					"host": [
-						"{{API_URL}}"
+						"nodejs-posts-kata",
+						"herokuapp",
+						"com"
 					],
 					"path": [
 						"posts"
