@@ -23,7 +23,7 @@ const requestListener = async (req, res) => {
       const posts = await Post.find().sort({createdAt: -1});
       successHandle(res, posts);
     } catch {
-      errorHandle(res, '取得資料失敗')
+      errorHandle(res, 205)
     }
   } else if (req.url === '/posts' && req.method === 'POST') {
     req.on('end', async () => {
@@ -41,7 +41,7 @@ const requestListener = async (req, res) => {
           successHandle(res, newPost);
         }
       } catch(error) {
-        errorHandle(res, error.errors)
+        errorHandle(res, 400, 40001)
       }
     })
   } else if (req.url === '/posts' && req.method === 'DELETE') {
@@ -53,7 +53,7 @@ const requestListener = async (req, res) => {
       const result = await Post.findByIdAndDelete(postId);
       if (result) successHandle(res, '刪除資料成功');
     } catch {
-      errorHandle(res, '刪除資料失敗，無此 ID');
+      errorHandle(res, 400, 40003);
     }
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
     req.on('end', async () => {
@@ -73,18 +73,13 @@ const requestListener = async (req, res) => {
           successHandle(res, '修改資料成功')
         }
       } catch {
-        errorHandle(res, '修改資料失敗，無此 ID');
+        errorHandle(res, 400, 40003);
       }
     })
   } else if (req.url === '/posts' && req.method === 'OPTIONS') {
     successHandle(res, 'OPTIONS');
   } else {
-    res.writeHead(404, headers);
-    res.write(JSON.stringify({
-      status: 'false',
-      data: '無此頁面'
-    }));
-    res.end();
+    errorHandle(res, 404);
   }
 }
 

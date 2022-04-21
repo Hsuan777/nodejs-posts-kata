@@ -17,7 +17,7 @@ function checkBody(res, data){
       return true
     }
   } catch(error) {
-    errorHandle(res, error);
+    errorHandle(res, 400, 40002, error);
   }
 };
 
