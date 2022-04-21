@@ -48,11 +48,11 @@ const requestListener = async (req, res) => {
     await Post.deleteMany({});
     successHandle(res, '刪除所有資料成功');
   } else if (req.url.startsWith('/posts/') && req.method === 'DELETE') {
-    const postId = req.url.split('/').pop();
-    const result = await Post.findByIdAndDelete(postId);
-    if (result) {
-      successHandle(res, '刪除資料成功');
-    } else {
+    try {
+      const postId = req.url.split('/').pop();
+      const result = await Post.findByIdAndDelete(postId);
+      if (result) successHandle(res, '刪除資料成功');
+    } catch {
       errorHandle(res, '刪除資料失敗，無此 ID');
     }
   } else if (req.url.startsWith('/posts/') && req.method === 'PATCH') {
